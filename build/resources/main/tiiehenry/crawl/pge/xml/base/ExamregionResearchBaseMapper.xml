@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tiiehenry.crawl.pge.mapper.base.ExamregionResearchBaseMapper">
+
+
+    <insert id="insertExamregionResearch" >
+        INSERT INTO `examregion_research`
+        (
+        <trim suffixOverrides=",">
+                    <if test="id!=null">
+                        `id`,
+                    </if>
+                    <if test="index!=null">
+                        `index`,
+                    </if>
+                    <if test="politics!=null">
+                        `politics`,
+                    </if>
+                    <if test="english!=null">
+                        `english`,
+                    </if>
+                    <if test="section1!=null">
+                        `section1`,
+                    </if>
+                    <if test="section2!=null">
+                        `section2`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="id!=null">
+                    #{id},
+                </if>
+                <if test="index!=null">
+                    #{index},
+                </if>
+                <if test="politics!=null">
+                    #{politics},
+                </if>
+                <if test="english!=null">
+                    #{english},
+                </if>
+                <if test="section1!=null">
+                    #{section1},
+                </if>
+                <if test="section2!=null">
+                    #{section2},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateExamregionResearch">
+        UPDATE `examregion_research`
+        SET
+        <trim suffixOverrides=",">
+            <if test="politics != null and politics!=''">
+                `politics` = #{politics},
+            </if>
+            <if test="english != null and english!=''">
+                `english` = #{english},
+            </if>
+            <if test="section1 != null and section1!=''">
+                `section1` = #{section1},
+            </if>
+            <if test="section2 != null and section2!=''">
+                `section2` = #{section2},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `id` = #{id} and
+                `index` = #{index} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `examregion_research`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.politics != null and set.politics!=''">
+            `politics` = #{set.politics},
+        </if>
+        <if test="set.english != null and set.english!=''">
+            `english` = #{set.english},
+        </if>
+        <if test="set.section1 != null and set.section1!=''">
+            `section1` = #{set.section1},
+        </if>
+        <if test="set.section2 != null and set.section2!=''">
+            `section2` = #{set.section2},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.idList != null">
+                    `id` in
+                    <foreach collection="where.idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyId!=null and where.fuzzyId.size()>0">
+                (
+                <foreach collection="where.fuzzyId"  separator="or" item="item">
+                    `Id` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyId!=null and where.rightFuzzyId.size()>0">
+                (
+                <foreach collection="where.rightFuzzyId"  separator="or" item="item">
+                    `Id` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.indexList != null">
+                    `index` in
+                    <foreach collection="where.indexList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.indexSt !=null">
+                `index` >= #{where.indexSt} and
+            </if>
+            <if test="where.indexEd!=null">
+                `index` &lt;= #{where.indexEd} and
+            </if>
+                <if test="where.politicsList != null">
+                    `politics` in
+                    <foreach collection="where.politicsList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyPolitics!=null and where.fuzzyPolitics.size()>0">
+                (
+                <foreach collection="where.fuzzyPolitics"  separator="or" item="item">
+                    `Politics` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyPolitics!=null and where.rightFuzzyPolitics.size()>0">
+                (
+                <foreach collection="where.rightFuzzyPolitics"  separator="or" item="item">
+                    `Politics` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.englishList != null">
+                    `english` in
+                    <foreach collection="where.englishList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyEnglish!=null and where.fuzzyEnglish.size()>0">
+                (
+                <foreach collection="where.fuzzyEnglish"  separator="or" item="item">
+                    `English` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyEnglish!=null and where.rightFuzzyEnglish.size()>0">
+                (
+                <foreach collection="where.rightFuzzyEnglish"  separator="or" item="item">
+                    `English` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.section1List != null">
+                    `section1` in
+                    <foreach collection="where.section1List" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzySection1!=null and where.fuzzySection1.size()>0">
+                (
+                <foreach collection="where.fuzzySection1"  separator="or" item="item">
+                    `Section1` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzySection1!=null and where.rightFuzzySection1.size()>0">
+                (
+                <foreach collection="where.rightFuzzySection1"  separator="or" item="item">
+                    `Section1` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.section2List != null">
+                    `section2` in
+                    <foreach collection="where.section2List" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzySection2!=null and where.fuzzySection2.size()>0">
+                (
+                <foreach collection="where.fuzzySection2"  separator="or" item="item">
+                    `Section2` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzySection2!=null and where.rightFuzzySection2.size()>0">
+                (
+                <foreach collection="where.rightFuzzySection2"  separator="or" item="item">
+                    `Section2` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="tiiehenry.crawl.pge.model.ExamregionResearch" id="ExamregionResearchMap">
+        <result property="id" column="id"/>
+        <result property="index" column="index"/>
+        <result property="politics" column="politics"/>
+        <result property="english" column="english"/>
+        <result property="section1" column="section1"/>
+        <result property="section2" column="section2"/>
+    </resultMap>
+
+
+    <select id="queryExamregionResearch" resultMap="ExamregionResearchMap">
+        select
+        <include refid="baseResult"></include>
+        from  `examregion_research`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null and id!=''">
+                `id` = #{id} and
+            </if>
+            <if test="index != null">
+                `index` = #{index} and
+            </if>
+            <if test="politics != null and politics!=''">
+                `politics` = #{politics} and
+            </if>
+            <if test="english != null and english!=''">
+                `english` = #{english} and
+            </if>
+            <if test="section1 != null and section1!=''">
+                `section1` = #{section1} and
+            </if>
+            <if test="section2 != null and section2!=''">
+                `section2` = #{section2} and
+            </if>
+            <if test = "(_parameter instanceof tiiehenry.crawl.pge.model.ExamregionResearch$QueryBuilder) == true">
+                <if test="idList != null">
+                    `id` in
+                    <foreach collection="idList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyId!=null and fuzzyId.size()>0">
+                    (
+                    <foreach collection="fuzzyId"  separator="or" item="item">
+                        `Id` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyId!=null and rightFuzzyId.size()>0">
+                    (
+                    <foreach collection="rightFuzzyId"  separator="or" item="item">
+                        `Id` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="indexList != null">
+                    `index` in
+                    <foreach collection="indexList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="indexSt !=null">
+                    `index` >= #{indexSt} and
+                </if>
+                <if test="indexEd!=null">
+                    `index` &lt;= #{indexEd} and
+                </if>
+                <if test="politicsList != null">
+                    `politics` in
+                    <foreach collection="politicsList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyPolitics!=null and fuzzyPolitics.size()>0">
+                    (
+                    <foreach collection="fuzzyPolitics"  separator="or" item="item">
+                        `Politics` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPolitics!=null and rightFuzzyPolitics.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPolitics"  separator="or" item="item">
+                        `Politics` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="englishList != null">
+                    `english` in
+                    <foreach collection="englishList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyEnglish!=null and fuzzyEnglish.size()>0">
+                    (
+                    <foreach collection="fuzzyEnglish"  separator="or" item="item">
+                        `English` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyEnglish!=null and rightFuzzyEnglish.size()>0">
+                    (
+                    <foreach collection="rightFuzzyEnglish"  separator="or" item="item">
+                        `English` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="section1List != null">
+                    `section1` in
+                    <foreach collection="section1List" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzySection1!=null and fuzzySection1.size()>0">
+                    (
+                    <foreach collection="fuzzySection1"  separator="or" item="item">
+                        `Section1` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySection1!=null and rightFuzzySection1.size()>0">
+                    (
+                    <foreach collection="rightFuzzySection1"  separator="or" item="item">
+                        `Section1` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="section2List != null">
+                    `section2` in
+                    <foreach collection="section2List" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzySection2!=null and fuzzySection2.size()>0">
+                    (
+                    <foreach collection="fuzzySection2"  separator="or" item="item">
+                        `Section2` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySection2!=null and rightFuzzySection2.size()>0">
+                    (
+                    <foreach collection="rightFuzzySection2"  separator="or" item="item">
+                        `Section2` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryExamregionResearchLimit1" resultMap="ExamregionResearchMap">
+        select
+        <include refid="baseResult"></include>
+        from  `examregion_research`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null and id!=''">
+                `id` = #{id} and
+            </if>
+            <if test="index != null">
+                `index` = #{index} and
+            </if>
+            <if test="politics != null and politics!=''">
+                `politics` = #{politics} and
+            </if>
+            <if test="english != null and english!=''">
+                `english` = #{english} and
+            </if>
+            <if test="section1 != null and section1!=''">
+                `section1` = #{section1} and
+            </if>
+            <if test="section2 != null and section2!=''">
+                `section2` = #{section2} and
+            </if>
+            <if test = "(_parameter instanceof tiiehenry.crawl.pge.model.ExamregionResearch$QueryBuilder) == true">
+                    <if test="idList != null">
+                        `id` in
+                        <foreach collection="idList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyId!=null and fuzzyId.size()>0">
+                    (
+                    <foreach collection="fuzzyId"  separator="or" item="item">
+                        `Id` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyId!=null and rightFuzzyId.size()>0">
+                    (
+                    <foreach collection="rightFuzzyId"  separator="or" item="item">
+                        `Id` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="indexList != null">
+                        `index` in
+                        <foreach collection="indexList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="indexSt !=null">
+                    `index` >= #{indexSt} and
+                </if>
+                <if test="indexEd!=null">
+                    `index` &lt;= #{indexEd} and
+                </if>
+                    <if test="politicsList != null">
+                        `politics` in
+                        <foreach collection="politicsList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyPolitics!=null and fuzzyPolitics.size()>0">
+                    (
+                    <foreach collection="fuzzyPolitics"  separator="or" item="item">
+                        `Politics` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyPolitics!=null and rightFuzzyPolitics.size()>0">
+                    (
+                    <foreach collection="rightFuzzyPolitics"  separator="or" item="item">
+                        `Politics` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="englishList != null">
+                        `english` in
+                        <foreach collection="englishList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyEnglish!=null and fuzzyEnglish.size()>0">
+                    (
+                    <foreach collection="fuzzyEnglish"  separator="or" item="item">
+                        `English` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyEnglish!=null and rightFuzzyEnglish.size()>0">
+                    (
+                    <foreach collection="rightFuzzyEnglish"  separator="or" item="item">
+                        `English` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="section1List != null">
+                        `section1` in
+                        <foreach collection="section1List" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzySection1!=null and fuzzySection1.size()>0">
+                    (
+                    <foreach collection="fuzzySection1"  separator="or" item="item">
+                        `Section1` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySection1!=null and rightFuzzySection1.size()>0">
+                    (
+                    <foreach collection="rightFuzzySection1"  separator="or" item="item">
+                        `Section1` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="section2List != null">
+                        `section2` in
+                        <foreach collection="section2List" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzySection2!=null and fuzzySection2.size()>0">
+                    (
+                    <foreach collection="fuzzySection2"  separator="or" item="item">
+                        `Section2` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySection2!=null and rightFuzzySection2.size()>0">
+                    (
+                    <foreach collection="rightFuzzySection2"  separator="or" item="item">
+                        `Section2` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `id`,
+        `index`,
+        `politics`,
+        `english`,
+        `section1`,
+        `section2`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof tiiehenry.crawl.pge.model.ExamregionResearch$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.id==true">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.index==true">
+                        `index`,
+                    </if>
+                    <if test="fetchFields.fetchFields.politics==true">
+                        `politics`,
+                    </if>
+                    <if test="fetchFields.fetchFields.english==true">
+                        `english`,
+                    </if>
+                    <if test="fetchFields.fetchFields.section1==true">
+                        `section1`,
+                    </if>
+                    <if test="fetchFields.fetchFields.section2==true">
+                        `section2`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.id==null">
+                        `id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.index==null">
+                        `index`,
+                    </if>
+                    <if test="fetchFields.excludeFields.politics==null">
+                        `politics`,
+                    </if>
+                    <if test="fetchFields.excludeFields.english==null">
+                        `english`,
+                    </if>
+                    <if test="fetchFields.excludeFields.section1==null">
+                        `section1`,
+                    </if>
+                    <if test="fetchFields.excludeFields.section2==null">
+                        `section2`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof tiiehenry.crawl.pge.model.ExamregionResearch$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

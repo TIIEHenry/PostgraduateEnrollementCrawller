@@ -1,0 +1,26 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.41'
+}
+
+group 'tiiehenry.crawl'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.11.2'
+    compile group: 'net.dongliu', name: 'requests', version: '4.14.1'
+    compile "org.mybatis:mybatis:3.5.2"
+    compile ("mysql:mysql-connector-java:8.0.18")
+}
+sourceSets.main.resources.srcDirs = ["src/main/java","src/main/resources"]
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}

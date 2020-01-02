@@ -1,0 +1,891 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tiiehenry.crawl.pge.mapper.base.CollegeSubjectBaseMapper">
+
+
+    <insert id="insertCollegeSubject" >
+        INSERT INTO `college_subject`
+        (
+        <trim suffixOverrides=",">
+                    <if test="url!=null">
+                        `url`,
+                    </if>
+                    <if test="collegeCode!=null">
+                        `collegeCode`,
+                    </if>
+                    <if test="collegeName!=null">
+                        `collegeName`,
+                    </if>
+                    <if test="provinceCode!=null">
+                        `provinceCode`,
+                    </if>
+                    <if test="provinceName!=null">
+                        `provinceName`,
+                    </if>
+                    <if test="graduateSchool!=null">
+                        `graduateSchool`,
+                    </if>
+                    <if test="selfScribing!=null">
+                        `selfScribing`,
+                    </if>
+                    <if test="doctorStation!=null">
+                        `doctorStation`,
+                    </if>
+                    <if test="subjectCode!=null">
+                        `subjectCode`,
+                    </if>
+                    <if test="subjectName!=null">
+                        `subjectName`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="url!=null">
+                    #{url},
+                </if>
+                <if test="collegeCode!=null">
+                    #{collegeCode},
+                </if>
+                <if test="collegeName!=null">
+                    #{collegeName},
+                </if>
+                <if test="provinceCode!=null">
+                    #{provinceCode},
+                </if>
+                <if test="provinceName!=null">
+                    #{provinceName},
+                </if>
+                <if test="graduateSchool!=null">
+                    #{graduateSchool},
+                </if>
+                <if test="selfScribing!=null">
+                    #{selfScribing},
+                </if>
+                <if test="doctorStation!=null">
+                    #{doctorStation},
+                </if>
+                <if test="subjectCode!=null">
+                    #{subjectCode},
+                </if>
+                <if test="subjectName!=null">
+                    #{subjectName},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateCollegeSubject">
+        UPDATE `college_subject`
+        SET
+        <trim suffixOverrides=",">
+            <if test="collegeCode != null and collegeCode!=''">
+                `collegeCode` = #{collegeCode},
+            </if>
+            <if test="collegeName != null and collegeName!=''">
+                `collegeName` = #{collegeName},
+            </if>
+            <if test="provinceCode != null and provinceCode!=''">
+                `provinceCode` = #{provinceCode},
+            </if>
+            <if test="provinceName != null and provinceName!=''">
+                `provinceName` = #{provinceName},
+            </if>
+            <if test="graduateSchool != null">
+                `graduateSchool` = #{graduateSchool},
+            </if>
+            <if test="selfScribing != null">
+                `selfScribing` = #{selfScribing},
+            </if>
+            <if test="doctorStation != null">
+                `doctorStation` = #{doctorStation},
+            </if>
+            <if test="subjectCode != null and subjectCode!=''">
+                `subjectCode` = #{subjectCode},
+            </if>
+            <if test="subjectName != null and subjectName!=''">
+                `subjectName` = #{subjectName},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `url` = #{url} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `college_subject`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.collegeCode != null and set.collegeCode!=''">
+            `collegeCode` = #{set.collegeCode},
+        </if>
+        <if test="set.collegeName != null and set.collegeName!=''">
+            `collegeName` = #{set.collegeName},
+        </if>
+        <if test="set.provinceCode != null and set.provinceCode!=''">
+            `provinceCode` = #{set.provinceCode},
+        </if>
+        <if test="set.provinceName != null and set.provinceName!=''">
+            `provinceName` = #{set.provinceName},
+        </if>
+        <if test="set.graduateSchool != null">
+            `graduateSchool` = #{set.graduateSchool},
+        </if>
+        <if test="set.selfScribing != null">
+            `selfScribing` = #{set.selfScribing},
+        </if>
+        <if test="set.doctorStation != null">
+            `doctorStation` = #{set.doctorStation},
+        </if>
+        <if test="set.subjectCode != null and set.subjectCode!=''">
+            `subjectCode` = #{set.subjectCode},
+        </if>
+        <if test="set.subjectName != null and set.subjectName!=''">
+            `subjectName` = #{set.subjectName},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.urlList != null">
+                    `url` in
+                    <foreach collection="where.urlList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyUrl!=null and where.fuzzyUrl.size()>0">
+                (
+                <foreach collection="where.fuzzyUrl"  separator="or" item="item">
+                    `Url` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyUrl!=null and where.rightFuzzyUrl.size()>0">
+                (
+                <foreach collection="where.rightFuzzyUrl"  separator="or" item="item">
+                    `Url` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.collegeCodeList != null">
+                    `collegeCode` in
+                    <foreach collection="where.collegeCodeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyCollegeCode!=null and where.fuzzyCollegeCode.size()>0">
+                (
+                <foreach collection="where.fuzzyCollegeCode"  separator="or" item="item">
+                    `CollegeCode` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyCollegeCode!=null and where.rightFuzzyCollegeCode.size()>0">
+                (
+                <foreach collection="where.rightFuzzyCollegeCode"  separator="or" item="item">
+                    `CollegeCode` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.collegeNameList != null">
+                    `collegeName` in
+                    <foreach collection="where.collegeNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyCollegeName!=null and where.fuzzyCollegeName.size()>0">
+                (
+                <foreach collection="where.fuzzyCollegeName"  separator="or" item="item">
+                    `CollegeName` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyCollegeName!=null and where.rightFuzzyCollegeName.size()>0">
+                (
+                <foreach collection="where.rightFuzzyCollegeName"  separator="or" item="item">
+                    `CollegeName` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.provinceCodeList != null">
+                    `provinceCode` in
+                    <foreach collection="where.provinceCodeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyProvinceCode!=null and where.fuzzyProvinceCode.size()>0">
+                (
+                <foreach collection="where.fuzzyProvinceCode"  separator="or" item="item">
+                    `ProvinceCode` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyProvinceCode!=null and where.rightFuzzyProvinceCode.size()>0">
+                (
+                <foreach collection="where.rightFuzzyProvinceCode"  separator="or" item="item">
+                    `ProvinceCode` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.provinceNameList != null">
+                    `provinceName` in
+                    <foreach collection="where.provinceNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyProvinceName!=null and where.fuzzyProvinceName.size()>0">
+                (
+                <foreach collection="where.fuzzyProvinceName"  separator="or" item="item">
+                    `ProvinceName` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyProvinceName!=null and where.rightFuzzyProvinceName.size()>0">
+                (
+                <foreach collection="where.rightFuzzyProvinceName"  separator="or" item="item">
+                    `ProvinceName` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.graduateSchoolList != null">
+                    `graduateSchool` in
+                    <foreach collection="where.graduateSchoolList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.graduateSchoolSt !=null">
+                `graduateSchool` >= #{where.graduateSchoolSt} and
+            </if>
+            <if test="where.graduateSchoolEd!=null">
+                `graduateSchool` &lt;= #{where.graduateSchoolEd} and
+            </if>
+                <if test="where.selfScribingList != null">
+                    `selfScribing` in
+                    <foreach collection="where.selfScribingList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.selfScribingSt !=null">
+                `selfScribing` >= #{where.selfScribingSt} and
+            </if>
+            <if test="where.selfScribingEd!=null">
+                `selfScribing` &lt;= #{where.selfScribingEd} and
+            </if>
+                <if test="where.doctorStationList != null">
+                    `doctorStation` in
+                    <foreach collection="where.doctorStationList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.doctorStationSt !=null">
+                `doctorStation` >= #{where.doctorStationSt} and
+            </if>
+            <if test="where.doctorStationEd!=null">
+                `doctorStation` &lt;= #{where.doctorStationEd} and
+            </if>
+                <if test="where.subjectCodeList != null">
+                    `subjectCode` in
+                    <foreach collection="where.subjectCodeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzySubjectCode!=null and where.fuzzySubjectCode.size()>0">
+                (
+                <foreach collection="where.fuzzySubjectCode"  separator="or" item="item">
+                    `SubjectCode` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzySubjectCode!=null and where.rightFuzzySubjectCode.size()>0">
+                (
+                <foreach collection="where.rightFuzzySubjectCode"  separator="or" item="item">
+                    `SubjectCode` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.subjectNameList != null">
+                    `subjectName` in
+                    <foreach collection="where.subjectNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzySubjectName!=null and where.fuzzySubjectName.size()>0">
+                (
+                <foreach collection="where.fuzzySubjectName"  separator="or" item="item">
+                    `SubjectName` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzySubjectName!=null and where.rightFuzzySubjectName.size()>0">
+                (
+                <foreach collection="where.rightFuzzySubjectName"  separator="or" item="item">
+                    `SubjectName` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="tiiehenry.crawl.pge.model.CollegeSubject" id="CollegeSubjectMap">
+        <result property="url" column="url"/>
+        <result property="collegeCode" column="collegeCode"/>
+        <result property="collegeName" column="collegeName"/>
+        <result property="provinceCode" column="provinceCode"/>
+        <result property="provinceName" column="provinceName"/>
+        <result property="graduateSchool" column="graduateSchool"/>
+        <result property="selfScribing" column="selfScribing"/>
+        <result property="doctorStation" column="doctorStation"/>
+        <result property="subjectCode" column="subjectCode"/>
+        <result property="subjectName" column="subjectName"/>
+    </resultMap>
+
+
+    <select id="queryCollegeSubject" resultMap="CollegeSubjectMap">
+        select
+        <include refid="baseResult"></include>
+        from  `college_subject`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="url != null and url!=''">
+                `url` = #{url} and
+            </if>
+            <if test="collegeCode != null and collegeCode!=''">
+                `collegeCode` = #{collegeCode} and
+            </if>
+            <if test="collegeName != null and collegeName!=''">
+                `collegeName` = #{collegeName} and
+            </if>
+            <if test="provinceCode != null and provinceCode!=''">
+                `provinceCode` = #{provinceCode} and
+            </if>
+            <if test="provinceName != null and provinceName!=''">
+                `provinceName` = #{provinceName} and
+            </if>
+            <if test="graduateSchool != null">
+                `graduateSchool` = #{graduateSchool} and
+            </if>
+            <if test="selfScribing != null">
+                `selfScribing` = #{selfScribing} and
+            </if>
+            <if test="doctorStation != null">
+                `doctorStation` = #{doctorStation} and
+            </if>
+            <if test="subjectCode != null and subjectCode!=''">
+                `subjectCode` = #{subjectCode} and
+            </if>
+            <if test="subjectName != null and subjectName!=''">
+                `subjectName` = #{subjectName} and
+            </if>
+            <if test = "(_parameter instanceof tiiehenry.crawl.pge.model.CollegeSubject$QueryBuilder) == true">
+                <if test="urlList != null">
+                    `url` in
+                    <foreach collection="urlList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyUrl!=null and fuzzyUrl.size()>0">
+                    (
+                    <foreach collection="fuzzyUrl"  separator="or" item="item">
+                        `Url` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyUrl!=null and rightFuzzyUrl.size()>0">
+                    (
+                    <foreach collection="rightFuzzyUrl"  separator="or" item="item">
+                        `Url` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="collegeCodeList != null">
+                    `collegeCode` in
+                    <foreach collection="collegeCodeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyCollegeCode!=null and fuzzyCollegeCode.size()>0">
+                    (
+                    <foreach collection="fuzzyCollegeCode"  separator="or" item="item">
+                        `CollegeCode` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyCollegeCode!=null and rightFuzzyCollegeCode.size()>0">
+                    (
+                    <foreach collection="rightFuzzyCollegeCode"  separator="or" item="item">
+                        `CollegeCode` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="collegeNameList != null">
+                    `collegeName` in
+                    <foreach collection="collegeNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyCollegeName!=null and fuzzyCollegeName.size()>0">
+                    (
+                    <foreach collection="fuzzyCollegeName"  separator="or" item="item">
+                        `CollegeName` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyCollegeName!=null and rightFuzzyCollegeName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyCollegeName"  separator="or" item="item">
+                        `CollegeName` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="provinceCodeList != null">
+                    `provinceCode` in
+                    <foreach collection="provinceCodeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyProvinceCode!=null and fuzzyProvinceCode.size()>0">
+                    (
+                    <foreach collection="fuzzyProvinceCode"  separator="or" item="item">
+                        `ProvinceCode` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyProvinceCode!=null and rightFuzzyProvinceCode.size()>0">
+                    (
+                    <foreach collection="rightFuzzyProvinceCode"  separator="or" item="item">
+                        `ProvinceCode` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="provinceNameList != null">
+                    `provinceName` in
+                    <foreach collection="provinceNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyProvinceName!=null and fuzzyProvinceName.size()>0">
+                    (
+                    <foreach collection="fuzzyProvinceName"  separator="or" item="item">
+                        `ProvinceName` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyProvinceName!=null and rightFuzzyProvinceName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyProvinceName"  separator="or" item="item">
+                        `ProvinceName` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="graduateSchoolList != null">
+                    `graduateSchool` in
+                    <foreach collection="graduateSchoolList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="graduateSchoolSt !=null">
+                    `graduateSchool` >= #{graduateSchoolSt} and
+                </if>
+                <if test="graduateSchoolEd!=null">
+                    `graduateSchool` &lt;= #{graduateSchoolEd} and
+                </if>
+                <if test="selfScribingList != null">
+                    `selfScribing` in
+                    <foreach collection="selfScribingList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="selfScribingSt !=null">
+                    `selfScribing` >= #{selfScribingSt} and
+                </if>
+                <if test="selfScribingEd!=null">
+                    `selfScribing` &lt;= #{selfScribingEd} and
+                </if>
+                <if test="doctorStationList != null">
+                    `doctorStation` in
+                    <foreach collection="doctorStationList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="doctorStationSt !=null">
+                    `doctorStation` >= #{doctorStationSt} and
+                </if>
+                <if test="doctorStationEd!=null">
+                    `doctorStation` &lt;= #{doctorStationEd} and
+                </if>
+                <if test="subjectCodeList != null">
+                    `subjectCode` in
+                    <foreach collection="subjectCodeList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzySubjectCode!=null and fuzzySubjectCode.size()>0">
+                    (
+                    <foreach collection="fuzzySubjectCode"  separator="or" item="item">
+                        `SubjectCode` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySubjectCode!=null and rightFuzzySubjectCode.size()>0">
+                    (
+                    <foreach collection="rightFuzzySubjectCode"  separator="or" item="item">
+                        `SubjectCode` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="subjectNameList != null">
+                    `subjectName` in
+                    <foreach collection="subjectNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzySubjectName!=null and fuzzySubjectName.size()>0">
+                    (
+                    <foreach collection="fuzzySubjectName"  separator="or" item="item">
+                        `SubjectName` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySubjectName!=null and rightFuzzySubjectName.size()>0">
+                    (
+                    <foreach collection="rightFuzzySubjectName"  separator="or" item="item">
+                        `SubjectName` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryCollegeSubjectLimit1" resultMap="CollegeSubjectMap">
+        select
+        <include refid="baseResult"></include>
+        from  `college_subject`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="url != null and url!=''">
+                `url` = #{url} and
+            </if>
+            <if test="collegeCode != null and collegeCode!=''">
+                `collegeCode` = #{collegeCode} and
+            </if>
+            <if test="collegeName != null and collegeName!=''">
+                `collegeName` = #{collegeName} and
+            </if>
+            <if test="provinceCode != null and provinceCode!=''">
+                `provinceCode` = #{provinceCode} and
+            </if>
+            <if test="provinceName != null and provinceName!=''">
+                `provinceName` = #{provinceName} and
+            </if>
+            <if test="graduateSchool != null">
+                `graduateSchool` = #{graduateSchool} and
+            </if>
+            <if test="selfScribing != null">
+                `selfScribing` = #{selfScribing} and
+            </if>
+            <if test="doctorStation != null">
+                `doctorStation` = #{doctorStation} and
+            </if>
+            <if test="subjectCode != null and subjectCode!=''">
+                `subjectCode` = #{subjectCode} and
+            </if>
+            <if test="subjectName != null and subjectName!=''">
+                `subjectName` = #{subjectName} and
+            </if>
+            <if test = "(_parameter instanceof tiiehenry.crawl.pge.model.CollegeSubject$QueryBuilder) == true">
+                    <if test="urlList != null">
+                        `url` in
+                        <foreach collection="urlList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyUrl!=null and fuzzyUrl.size()>0">
+                    (
+                    <foreach collection="fuzzyUrl"  separator="or" item="item">
+                        `Url` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyUrl!=null and rightFuzzyUrl.size()>0">
+                    (
+                    <foreach collection="rightFuzzyUrl"  separator="or" item="item">
+                        `Url` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="collegeCodeList != null">
+                        `collegeCode` in
+                        <foreach collection="collegeCodeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyCollegeCode!=null and fuzzyCollegeCode.size()>0">
+                    (
+                    <foreach collection="fuzzyCollegeCode"  separator="or" item="item">
+                        `CollegeCode` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyCollegeCode!=null and rightFuzzyCollegeCode.size()>0">
+                    (
+                    <foreach collection="rightFuzzyCollegeCode"  separator="or" item="item">
+                        `CollegeCode` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="collegeNameList != null">
+                        `collegeName` in
+                        <foreach collection="collegeNameList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyCollegeName!=null and fuzzyCollegeName.size()>0">
+                    (
+                    <foreach collection="fuzzyCollegeName"  separator="or" item="item">
+                        `CollegeName` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyCollegeName!=null and rightFuzzyCollegeName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyCollegeName"  separator="or" item="item">
+                        `CollegeName` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="provinceCodeList != null">
+                        `provinceCode` in
+                        <foreach collection="provinceCodeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyProvinceCode!=null and fuzzyProvinceCode.size()>0">
+                    (
+                    <foreach collection="fuzzyProvinceCode"  separator="or" item="item">
+                        `ProvinceCode` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyProvinceCode!=null and rightFuzzyProvinceCode.size()>0">
+                    (
+                    <foreach collection="rightFuzzyProvinceCode"  separator="or" item="item">
+                        `ProvinceCode` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="provinceNameList != null">
+                        `provinceName` in
+                        <foreach collection="provinceNameList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyProvinceName!=null and fuzzyProvinceName.size()>0">
+                    (
+                    <foreach collection="fuzzyProvinceName"  separator="or" item="item">
+                        `ProvinceName` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyProvinceName!=null and rightFuzzyProvinceName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyProvinceName"  separator="or" item="item">
+                        `ProvinceName` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="graduateSchoolList != null">
+                        `graduateSchool` in
+                        <foreach collection="graduateSchoolList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="graduateSchoolSt !=null">
+                    `graduateSchool` >= #{graduateSchoolSt} and
+                </if>
+                <if test="graduateSchoolEd!=null">
+                    `graduateSchool` &lt;= #{graduateSchoolEd} and
+                </if>
+                    <if test="selfScribingList != null">
+                        `selfScribing` in
+                        <foreach collection="selfScribingList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="selfScribingSt !=null">
+                    `selfScribing` >= #{selfScribingSt} and
+                </if>
+                <if test="selfScribingEd!=null">
+                    `selfScribing` &lt;= #{selfScribingEd} and
+                </if>
+                    <if test="doctorStationList != null">
+                        `doctorStation` in
+                        <foreach collection="doctorStationList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="doctorStationSt !=null">
+                    `doctorStation` >= #{doctorStationSt} and
+                </if>
+                <if test="doctorStationEd!=null">
+                    `doctorStation` &lt;= #{doctorStationEd} and
+                </if>
+                    <if test="subjectCodeList != null">
+                        `subjectCode` in
+                        <foreach collection="subjectCodeList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzySubjectCode!=null and fuzzySubjectCode.size()>0">
+                    (
+                    <foreach collection="fuzzySubjectCode"  separator="or" item="item">
+                        `SubjectCode` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySubjectCode!=null and rightFuzzySubjectCode.size()>0">
+                    (
+                    <foreach collection="rightFuzzySubjectCode"  separator="or" item="item">
+                        `SubjectCode` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="subjectNameList != null">
+                        `subjectName` in
+                        <foreach collection="subjectNameList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzySubjectName!=null and fuzzySubjectName.size()>0">
+                    (
+                    <foreach collection="fuzzySubjectName"  separator="or" item="item">
+                        `SubjectName` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySubjectName!=null and rightFuzzySubjectName.size()>0">
+                    (
+                    <foreach collection="rightFuzzySubjectName"  separator="or" item="item">
+                        `SubjectName` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `url`,
+        `collegeCode`,
+        `collegeName`,
+        `provinceCode`,
+        `provinceName`,
+        `graduateSchool`,
+        `selfScribing`,
+        `doctorStation`,
+        `subjectCode`,
+        `subjectName`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof tiiehenry.crawl.pge.model.CollegeSubject$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.url==true">
+                        `url`,
+                    </if>
+                    <if test="fetchFields.fetchFields.collegeCode==true">
+                        `collegeCode`,
+                    </if>
+                    <if test="fetchFields.fetchFields.collegeName==true">
+                        `collegeName`,
+                    </if>
+                    <if test="fetchFields.fetchFields.provinceCode==true">
+                        `provinceCode`,
+                    </if>
+                    <if test="fetchFields.fetchFields.provinceName==true">
+                        `provinceName`,
+                    </if>
+                    <if test="fetchFields.fetchFields.graduateSchool==true">
+                        `graduateSchool`,
+                    </if>
+                    <if test="fetchFields.fetchFields.selfScribing==true">
+                        `selfScribing`,
+                    </if>
+                    <if test="fetchFields.fetchFields.doctorStation==true">
+                        `doctorStation`,
+                    </if>
+                    <if test="fetchFields.fetchFields.subjectCode==true">
+                        `subjectCode`,
+                    </if>
+                    <if test="fetchFields.fetchFields.subjectName==true">
+                        `subjectName`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.url==null">
+                        `url`,
+                    </if>
+                    <if test="fetchFields.excludeFields.collegeCode==null">
+                        `collegeCode`,
+                    </if>
+                    <if test="fetchFields.excludeFields.collegeName==null">
+                        `collegeName`,
+                    </if>
+                    <if test="fetchFields.excludeFields.provinceCode==null">
+                        `provinceCode`,
+                    </if>
+                    <if test="fetchFields.excludeFields.provinceName==null">
+                        `provinceName`,
+                    </if>
+                    <if test="fetchFields.excludeFields.graduateSchool==null">
+                        `graduateSchool`,
+                    </if>
+                    <if test="fetchFields.excludeFields.selfScribing==null">
+                        `selfScribing`,
+                    </if>
+                    <if test="fetchFields.excludeFields.doctorStation==null">
+                        `doctorStation`,
+                    </if>
+                    <if test="fetchFields.excludeFields.subjectCode==null">
+                        `subjectCode`,
+                    </if>
+                    <if test="fetchFields.excludeFields.subjectName==null">
+                        `subjectName`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof tiiehenry.crawl.pge.model.CollegeSubject$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

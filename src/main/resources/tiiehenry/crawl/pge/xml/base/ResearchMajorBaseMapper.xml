@@ -1,0 +1,1115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tiiehenry.crawl.pge.mapper.base.ResearchMajorBaseMapper">
+
+
+    <insert id="insertResearchMajor" >
+        INSERT INTO `research_major`
+        (
+        <trim suffixOverrides=",">
+                    <if test="url!=null">
+                        `url`,
+                    </if>
+                    <if test="examWay!=null">
+                        `examWay`,
+                    </if>
+                    <if test="faculty!=null">
+                        `faculty`,
+                    </if>
+                    <if test="major!=null">
+                        `major`,
+                    </if>
+                    <if test="majorDirection!=null">
+                        `majorDirection`,
+                    </if>
+                    <if test="studyWay!=null">
+                        `studyWay`,
+                    </if>
+                    <if test="teacher!=null">
+                        `teacher`,
+                    </if>
+                    <if test="enrollmentPlan!=null">
+                        `enrollmentPlan`,
+                    </if>
+                    <if test="examRegionUrl!=null">
+                        `examRegionUrl`,
+                    </if>
+                    <if test="examRegionId!=null">
+                        `examRegionId`,
+                    </if>
+                    <if test="interdisciplinary!=null">
+                        `interdisciplinary`,
+                    </if>
+                    <if test="comment!=null">
+                        `comment`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="url!=null">
+                    #{url},
+                </if>
+                <if test="examWay!=null">
+                    #{examWay},
+                </if>
+                <if test="faculty!=null">
+                    #{faculty},
+                </if>
+                <if test="major!=null">
+                    #{major},
+                </if>
+                <if test="majorDirection!=null">
+                    #{majorDirection},
+                </if>
+                <if test="studyWay!=null">
+                    #{studyWay},
+                </if>
+                <if test="teacher!=null">
+                    #{teacher},
+                </if>
+                <if test="enrollmentPlan!=null">
+                    #{enrollmentPlan},
+                </if>
+                <if test="examRegionUrl!=null">
+                    #{examRegionUrl},
+                </if>
+                <if test="examRegionId!=null">
+                    #{examRegionId},
+                </if>
+                <if test="interdisciplinary!=null">
+                    #{interdisciplinary},
+                </if>
+                <if test="comment!=null">
+                    #{comment},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateResearchMajor">
+        UPDATE `research_major`
+        SET
+        <trim suffixOverrides=",">
+            <if test="url != null and url!=''">
+                `url` = #{url},
+            </if>
+            <if test="examWay != null and examWay!=''">
+                `examWay` = #{examWay},
+            </if>
+            <if test="teacher != null and teacher!=''">
+                `teacher` = #{teacher},
+            </if>
+            <if test="enrollmentPlan != null and enrollmentPlan!=''">
+                `enrollmentPlan` = #{enrollmentPlan},
+            </if>
+            <if test="examRegionUrl != null and examRegionUrl!=''">
+                `examRegionUrl` = #{examRegionUrl},
+            </if>
+            <if test="interdisciplinary != null and interdisciplinary!=''">
+                `interdisciplinary` = #{interdisciplinary},
+            </if>
+            <if test="comment != null and comment!=''">
+                `comment` = #{comment},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `faculty` = #{faculty} and
+                `major` = #{major} and
+                `majorDirection` = #{majorDirection} and
+                `studyWay` = #{studyWay} and
+                `examRegionId` = #{examRegionId} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `research_major`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.url != null and set.url!=''">
+            `url` = #{set.url},
+        </if>
+        <if test="set.examWay != null and set.examWay!=''">
+            `examWay` = #{set.examWay},
+        </if>
+        <if test="set.teacher != null and set.teacher!=''">
+            `teacher` = #{set.teacher},
+        </if>
+        <if test="set.enrollmentPlan != null and set.enrollmentPlan!=''">
+            `enrollmentPlan` = #{set.enrollmentPlan},
+        </if>
+        <if test="set.examRegionUrl != null and set.examRegionUrl!=''">
+            `examRegionUrl` = #{set.examRegionUrl},
+        </if>
+        <if test="set.interdisciplinary != null and set.interdisciplinary!=''">
+            `interdisciplinary` = #{set.interdisciplinary},
+        </if>
+        <if test="set.comment != null and set.comment!=''">
+            `comment` = #{set.comment},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.urlList != null">
+                    `url` in
+                    <foreach collection="where.urlList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyUrl!=null and where.fuzzyUrl.size()>0">
+                (
+                <foreach collection="where.fuzzyUrl"  separator="or" item="item">
+                    `Url` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyUrl!=null and where.rightFuzzyUrl.size()>0">
+                (
+                <foreach collection="where.rightFuzzyUrl"  separator="or" item="item">
+                    `Url` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.examWayList != null">
+                    `examWay` in
+                    <foreach collection="where.examWayList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyExamWay!=null and where.fuzzyExamWay.size()>0">
+                (
+                <foreach collection="where.fuzzyExamWay"  separator="or" item="item">
+                    `ExamWay` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyExamWay!=null and where.rightFuzzyExamWay.size()>0">
+                (
+                <foreach collection="where.rightFuzzyExamWay"  separator="or" item="item">
+                    `ExamWay` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.facultyList != null">
+                    `faculty` in
+                    <foreach collection="where.facultyList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyFaculty!=null and where.fuzzyFaculty.size()>0">
+                (
+                <foreach collection="where.fuzzyFaculty"  separator="or" item="item">
+                    `Faculty` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyFaculty!=null and where.rightFuzzyFaculty.size()>0">
+                (
+                <foreach collection="where.rightFuzzyFaculty"  separator="or" item="item">
+                    `Faculty` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.majorList != null">
+                    `major` in
+                    <foreach collection="where.majorList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyMajor!=null and where.fuzzyMajor.size()>0">
+                (
+                <foreach collection="where.fuzzyMajor"  separator="or" item="item">
+                    `Major` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyMajor!=null and where.rightFuzzyMajor.size()>0">
+                (
+                <foreach collection="where.rightFuzzyMajor"  separator="or" item="item">
+                    `Major` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.majorDirectionList != null">
+                    `majorDirection` in
+                    <foreach collection="where.majorDirectionList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyMajorDirection!=null and where.fuzzyMajorDirection.size()>0">
+                (
+                <foreach collection="where.fuzzyMajorDirection"  separator="or" item="item">
+                    `MajorDirection` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyMajorDirection!=null and where.rightFuzzyMajorDirection.size()>0">
+                (
+                <foreach collection="where.rightFuzzyMajorDirection"  separator="or" item="item">
+                    `MajorDirection` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.studyWayList != null">
+                    `studyWay` in
+                    <foreach collection="where.studyWayList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyStudyWay!=null and where.fuzzyStudyWay.size()>0">
+                (
+                <foreach collection="where.fuzzyStudyWay"  separator="or" item="item">
+                    `StudyWay` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyStudyWay!=null and where.rightFuzzyStudyWay.size()>0">
+                (
+                <foreach collection="where.rightFuzzyStudyWay"  separator="or" item="item">
+                    `StudyWay` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.teacherList != null">
+                    `teacher` in
+                    <foreach collection="where.teacherList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyTeacher!=null and where.fuzzyTeacher.size()>0">
+                (
+                <foreach collection="where.fuzzyTeacher"  separator="or" item="item">
+                    `Teacher` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyTeacher!=null and where.rightFuzzyTeacher.size()>0">
+                (
+                <foreach collection="where.rightFuzzyTeacher"  separator="or" item="item">
+                    `Teacher` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.enrollmentPlanList != null">
+                    `enrollmentPlan` in
+                    <foreach collection="where.enrollmentPlanList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyEnrollmentPlan!=null and where.fuzzyEnrollmentPlan.size()>0">
+                (
+                <foreach collection="where.fuzzyEnrollmentPlan"  separator="or" item="item">
+                    `EnrollmentPlan` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyEnrollmentPlan!=null and where.rightFuzzyEnrollmentPlan.size()>0">
+                (
+                <foreach collection="where.rightFuzzyEnrollmentPlan"  separator="or" item="item">
+                    `EnrollmentPlan` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.examRegionUrlList != null">
+                    `examRegionUrl` in
+                    <foreach collection="where.examRegionUrlList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyExamRegionUrl!=null and where.fuzzyExamRegionUrl.size()>0">
+                (
+                <foreach collection="where.fuzzyExamRegionUrl"  separator="or" item="item">
+                    `ExamRegionUrl` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyExamRegionUrl!=null and where.rightFuzzyExamRegionUrl.size()>0">
+                (
+                <foreach collection="where.rightFuzzyExamRegionUrl"  separator="or" item="item">
+                    `ExamRegionUrl` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.examRegionIdList != null">
+                    `examRegionId` in
+                    <foreach collection="where.examRegionIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyExamRegionId!=null and where.fuzzyExamRegionId.size()>0">
+                (
+                <foreach collection="where.fuzzyExamRegionId"  separator="or" item="item">
+                    `ExamRegionId` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyExamRegionId!=null and where.rightFuzzyExamRegionId.size()>0">
+                (
+                <foreach collection="where.rightFuzzyExamRegionId"  separator="or" item="item">
+                    `ExamRegionId` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.interdisciplinaryList != null">
+                    `interdisciplinary` in
+                    <foreach collection="where.interdisciplinaryList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyInterdisciplinary!=null and where.fuzzyInterdisciplinary.size()>0">
+                (
+                <foreach collection="where.fuzzyInterdisciplinary"  separator="or" item="item">
+                    `Interdisciplinary` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyInterdisciplinary!=null and where.rightFuzzyInterdisciplinary.size()>0">
+                (
+                <foreach collection="where.rightFuzzyInterdisciplinary"  separator="or" item="item">
+                    `Interdisciplinary` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.commentList != null">
+                    `comment` in
+                    <foreach collection="where.commentList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyComment!=null and where.fuzzyComment.size()>0">
+                (
+                <foreach collection="where.fuzzyComment"  separator="or" item="item">
+                    `Comment` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyComment!=null and where.rightFuzzyComment.size()>0">
+                (
+                <foreach collection="where.rightFuzzyComment"  separator="or" item="item">
+                    `Comment` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="tiiehenry.crawl.pge.model.ResearchMajor" id="ResearchMajorMap">
+        <result property="url" column="url"/>
+        <result property="examWay" column="examWay"/>
+        <result property="faculty" column="faculty"/>
+        <result property="major" column="major"/>
+        <result property="majorDirection" column="majorDirection"/>
+        <result property="studyWay" column="studyWay"/>
+        <result property="teacher" column="teacher"/>
+        <result property="enrollmentPlan" column="enrollmentPlan"/>
+        <result property="examRegionUrl" column="examRegionUrl"/>
+        <result property="examRegionId" column="examRegionId"/>
+        <result property="interdisciplinary" column="interdisciplinary"/>
+        <result property="comment" column="comment"/>
+    </resultMap>
+
+
+    <select id="queryResearchMajor" resultMap="ResearchMajorMap">
+        select
+        <include refid="baseResult"></include>
+        from  `research_major`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="url != null and url!=''">
+                `url` = #{url} and
+            </if>
+            <if test="examWay != null and examWay!=''">
+                `examWay` = #{examWay} and
+            </if>
+            <if test="faculty != null and faculty!=''">
+                `faculty` = #{faculty} and
+            </if>
+            <if test="major != null and major!=''">
+                `major` = #{major} and
+            </if>
+            <if test="majorDirection != null and majorDirection!=''">
+                `majorDirection` = #{majorDirection} and
+            </if>
+            <if test="studyWay != null and studyWay!=''">
+                `studyWay` = #{studyWay} and
+            </if>
+            <if test="teacher != null and teacher!=''">
+                `teacher` = #{teacher} and
+            </if>
+            <if test="enrollmentPlan != null and enrollmentPlan!=''">
+                `enrollmentPlan` = #{enrollmentPlan} and
+            </if>
+            <if test="examRegionUrl != null and examRegionUrl!=''">
+                `examRegionUrl` = #{examRegionUrl} and
+            </if>
+            <if test="examRegionId != null and examRegionId!=''">
+                `examRegionId` = #{examRegionId} and
+            </if>
+            <if test="interdisciplinary != null and interdisciplinary!=''">
+                `interdisciplinary` = #{interdisciplinary} and
+            </if>
+            <if test="comment != null and comment!=''">
+                `comment` = #{comment} and
+            </if>
+            <if test = "(_parameter instanceof tiiehenry.crawl.pge.model.ResearchMajor$QueryBuilder) == true">
+                <if test="urlList != null">
+                    `url` in
+                    <foreach collection="urlList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyUrl!=null and fuzzyUrl.size()>0">
+                    (
+                    <foreach collection="fuzzyUrl"  separator="or" item="item">
+                        `Url` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyUrl!=null and rightFuzzyUrl.size()>0">
+                    (
+                    <foreach collection="rightFuzzyUrl"  separator="or" item="item">
+                        `Url` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="examWayList != null">
+                    `examWay` in
+                    <foreach collection="examWayList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyExamWay!=null and fuzzyExamWay.size()>0">
+                    (
+                    <foreach collection="fuzzyExamWay"  separator="or" item="item">
+                        `ExamWay` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyExamWay!=null and rightFuzzyExamWay.size()>0">
+                    (
+                    <foreach collection="rightFuzzyExamWay"  separator="or" item="item">
+                        `ExamWay` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="facultyList != null">
+                    `faculty` in
+                    <foreach collection="facultyList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyFaculty!=null and fuzzyFaculty.size()>0">
+                    (
+                    <foreach collection="fuzzyFaculty"  separator="or" item="item">
+                        `Faculty` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyFaculty!=null and rightFuzzyFaculty.size()>0">
+                    (
+                    <foreach collection="rightFuzzyFaculty"  separator="or" item="item">
+                        `Faculty` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="majorList != null">
+                    `major` in
+                    <foreach collection="majorList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyMajor!=null and fuzzyMajor.size()>0">
+                    (
+                    <foreach collection="fuzzyMajor"  separator="or" item="item">
+                        `Major` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyMajor!=null and rightFuzzyMajor.size()>0">
+                    (
+                    <foreach collection="rightFuzzyMajor"  separator="or" item="item">
+                        `Major` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="majorDirectionList != null">
+                    `majorDirection` in
+                    <foreach collection="majorDirectionList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyMajorDirection!=null and fuzzyMajorDirection.size()>0">
+                    (
+                    <foreach collection="fuzzyMajorDirection"  separator="or" item="item">
+                        `MajorDirection` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyMajorDirection!=null and rightFuzzyMajorDirection.size()>0">
+                    (
+                    <foreach collection="rightFuzzyMajorDirection"  separator="or" item="item">
+                        `MajorDirection` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="studyWayList != null">
+                    `studyWay` in
+                    <foreach collection="studyWayList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyStudyWay!=null and fuzzyStudyWay.size()>0">
+                    (
+                    <foreach collection="fuzzyStudyWay"  separator="or" item="item">
+                        `StudyWay` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyStudyWay!=null and rightFuzzyStudyWay.size()>0">
+                    (
+                    <foreach collection="rightFuzzyStudyWay"  separator="or" item="item">
+                        `StudyWay` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="teacherList != null">
+                    `teacher` in
+                    <foreach collection="teacherList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyTeacher!=null and fuzzyTeacher.size()>0">
+                    (
+                    <foreach collection="fuzzyTeacher"  separator="or" item="item">
+                        `Teacher` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyTeacher!=null and rightFuzzyTeacher.size()>0">
+                    (
+                    <foreach collection="rightFuzzyTeacher"  separator="or" item="item">
+                        `Teacher` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="enrollmentPlanList != null">
+                    `enrollmentPlan` in
+                    <foreach collection="enrollmentPlanList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyEnrollmentPlan!=null and fuzzyEnrollmentPlan.size()>0">
+                    (
+                    <foreach collection="fuzzyEnrollmentPlan"  separator="or" item="item">
+                        `EnrollmentPlan` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyEnrollmentPlan!=null and rightFuzzyEnrollmentPlan.size()>0">
+                    (
+                    <foreach collection="rightFuzzyEnrollmentPlan"  separator="or" item="item">
+                        `EnrollmentPlan` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="examRegionUrlList != null">
+                    `examRegionUrl` in
+                    <foreach collection="examRegionUrlList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyExamRegionUrl!=null and fuzzyExamRegionUrl.size()>0">
+                    (
+                    <foreach collection="fuzzyExamRegionUrl"  separator="or" item="item">
+                        `ExamRegionUrl` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyExamRegionUrl!=null and rightFuzzyExamRegionUrl.size()>0">
+                    (
+                    <foreach collection="rightFuzzyExamRegionUrl"  separator="or" item="item">
+                        `ExamRegionUrl` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="examRegionIdList != null">
+                    `examRegionId` in
+                    <foreach collection="examRegionIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyExamRegionId!=null and fuzzyExamRegionId.size()>0">
+                    (
+                    <foreach collection="fuzzyExamRegionId"  separator="or" item="item">
+                        `ExamRegionId` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyExamRegionId!=null and rightFuzzyExamRegionId.size()>0">
+                    (
+                    <foreach collection="rightFuzzyExamRegionId"  separator="or" item="item">
+                        `ExamRegionId` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="interdisciplinaryList != null">
+                    `interdisciplinary` in
+                    <foreach collection="interdisciplinaryList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyInterdisciplinary!=null and fuzzyInterdisciplinary.size()>0">
+                    (
+                    <foreach collection="fuzzyInterdisciplinary"  separator="or" item="item">
+                        `Interdisciplinary` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyInterdisciplinary!=null and rightFuzzyInterdisciplinary.size()>0">
+                    (
+                    <foreach collection="rightFuzzyInterdisciplinary"  separator="or" item="item">
+                        `Interdisciplinary` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="commentList != null">
+                    `comment` in
+                    <foreach collection="commentList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyComment!=null and fuzzyComment.size()>0">
+                    (
+                    <foreach collection="fuzzyComment"  separator="or" item="item">
+                        `Comment` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyComment!=null and rightFuzzyComment.size()>0">
+                    (
+                    <foreach collection="rightFuzzyComment"  separator="or" item="item">
+                        `Comment` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryResearchMajorLimit1" resultMap="ResearchMajorMap">
+        select
+        <include refid="baseResult"></include>
+        from  `research_major`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="url != null and url!=''">
+                `url` = #{url} and
+            </if>
+            <if test="examWay != null and examWay!=''">
+                `examWay` = #{examWay} and
+            </if>
+            <if test="faculty != null and faculty!=''">
+                `faculty` = #{faculty} and
+            </if>
+            <if test="major != null and major!=''">
+                `major` = #{major} and
+            </if>
+            <if test="majorDirection != null and majorDirection!=''">
+                `majorDirection` = #{majorDirection} and
+            </if>
+            <if test="studyWay != null and studyWay!=''">
+                `studyWay` = #{studyWay} and
+            </if>
+            <if test="teacher != null and teacher!=''">
+                `teacher` = #{teacher} and
+            </if>
+            <if test="enrollmentPlan != null and enrollmentPlan!=''">
+                `enrollmentPlan` = #{enrollmentPlan} and
+            </if>
+            <if test="examRegionUrl != null and examRegionUrl!=''">
+                `examRegionUrl` = #{examRegionUrl} and
+            </if>
+            <if test="examRegionId != null and examRegionId!=''">
+                `examRegionId` = #{examRegionId} and
+            </if>
+            <if test="interdisciplinary != null and interdisciplinary!=''">
+                `interdisciplinary` = #{interdisciplinary} and
+            </if>
+            <if test="comment != null and comment!=''">
+                `comment` = #{comment} and
+            </if>
+            <if test = "(_parameter instanceof tiiehenry.crawl.pge.model.ResearchMajor$QueryBuilder) == true">
+                    <if test="urlList != null">
+                        `url` in
+                        <foreach collection="urlList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyUrl!=null and fuzzyUrl.size()>0">
+                    (
+                    <foreach collection="fuzzyUrl"  separator="or" item="item">
+                        `Url` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyUrl!=null and rightFuzzyUrl.size()>0">
+                    (
+                    <foreach collection="rightFuzzyUrl"  separator="or" item="item">
+                        `Url` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="examWayList != null">
+                        `examWay` in
+                        <foreach collection="examWayList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyExamWay!=null and fuzzyExamWay.size()>0">
+                    (
+                    <foreach collection="fuzzyExamWay"  separator="or" item="item">
+                        `ExamWay` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyExamWay!=null and rightFuzzyExamWay.size()>0">
+                    (
+                    <foreach collection="rightFuzzyExamWay"  separator="or" item="item">
+                        `ExamWay` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="facultyList != null">
+                        `faculty` in
+                        <foreach collection="facultyList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyFaculty!=null and fuzzyFaculty.size()>0">
+                    (
+                    <foreach collection="fuzzyFaculty"  separator="or" item="item">
+                        `Faculty` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyFaculty!=null and rightFuzzyFaculty.size()>0">
+                    (
+                    <foreach collection="rightFuzzyFaculty"  separator="or" item="item">
+                        `Faculty` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="majorList != null">
+                        `major` in
+                        <foreach collection="majorList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyMajor!=null and fuzzyMajor.size()>0">
+                    (
+                    <foreach collection="fuzzyMajor"  separator="or" item="item">
+                        `Major` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyMajor!=null and rightFuzzyMajor.size()>0">
+                    (
+                    <foreach collection="rightFuzzyMajor"  separator="or" item="item">
+                        `Major` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="majorDirectionList != null">
+                        `majorDirection` in
+                        <foreach collection="majorDirectionList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyMajorDirection!=null and fuzzyMajorDirection.size()>0">
+                    (
+                    <foreach collection="fuzzyMajorDirection"  separator="or" item="item">
+                        `MajorDirection` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyMajorDirection!=null and rightFuzzyMajorDirection.size()>0">
+                    (
+                    <foreach collection="rightFuzzyMajorDirection"  separator="or" item="item">
+                        `MajorDirection` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="studyWayList != null">
+                        `studyWay` in
+                        <foreach collection="studyWayList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyStudyWay!=null and fuzzyStudyWay.size()>0">
+                    (
+                    <foreach collection="fuzzyStudyWay"  separator="or" item="item">
+                        `StudyWay` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyStudyWay!=null and rightFuzzyStudyWay.size()>0">
+                    (
+                    <foreach collection="rightFuzzyStudyWay"  separator="or" item="item">
+                        `StudyWay` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="teacherList != null">
+                        `teacher` in
+                        <foreach collection="teacherList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyTeacher!=null and fuzzyTeacher.size()>0">
+                    (
+                    <foreach collection="fuzzyTeacher"  separator="or" item="item">
+                        `Teacher` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyTeacher!=null and rightFuzzyTeacher.size()>0">
+                    (
+                    <foreach collection="rightFuzzyTeacher"  separator="or" item="item">
+                        `Teacher` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="enrollmentPlanList != null">
+                        `enrollmentPlan` in
+                        <foreach collection="enrollmentPlanList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyEnrollmentPlan!=null and fuzzyEnrollmentPlan.size()>0">
+                    (
+                    <foreach collection="fuzzyEnrollmentPlan"  separator="or" item="item">
+                        `EnrollmentPlan` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyEnrollmentPlan!=null and rightFuzzyEnrollmentPlan.size()>0">
+                    (
+                    <foreach collection="rightFuzzyEnrollmentPlan"  separator="or" item="item">
+                        `EnrollmentPlan` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="examRegionUrlList != null">
+                        `examRegionUrl` in
+                        <foreach collection="examRegionUrlList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyExamRegionUrl!=null and fuzzyExamRegionUrl.size()>0">
+                    (
+                    <foreach collection="fuzzyExamRegionUrl"  separator="or" item="item">
+                        `ExamRegionUrl` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyExamRegionUrl!=null and rightFuzzyExamRegionUrl.size()>0">
+                    (
+                    <foreach collection="rightFuzzyExamRegionUrl"  separator="or" item="item">
+                        `ExamRegionUrl` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="examRegionIdList != null">
+                        `examRegionId` in
+                        <foreach collection="examRegionIdList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyExamRegionId!=null and fuzzyExamRegionId.size()>0">
+                    (
+                    <foreach collection="fuzzyExamRegionId"  separator="or" item="item">
+                        `ExamRegionId` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyExamRegionId!=null and rightFuzzyExamRegionId.size()>0">
+                    (
+                    <foreach collection="rightFuzzyExamRegionId"  separator="or" item="item">
+                        `ExamRegionId` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="interdisciplinaryList != null">
+                        `interdisciplinary` in
+                        <foreach collection="interdisciplinaryList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyInterdisciplinary!=null and fuzzyInterdisciplinary.size()>0">
+                    (
+                    <foreach collection="fuzzyInterdisciplinary"  separator="or" item="item">
+                        `Interdisciplinary` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyInterdisciplinary!=null and rightFuzzyInterdisciplinary.size()>0">
+                    (
+                    <foreach collection="rightFuzzyInterdisciplinary"  separator="or" item="item">
+                        `Interdisciplinary` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="commentList != null">
+                        `comment` in
+                        <foreach collection="commentList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyComment!=null and fuzzyComment.size()>0">
+                    (
+                    <foreach collection="fuzzyComment"  separator="or" item="item">
+                        `Comment` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyComment!=null and rightFuzzyComment.size()>0">
+                    (
+                    <foreach collection="rightFuzzyComment"  separator="or" item="item">
+                        `Comment` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `url`,
+        `examWay`,
+        `faculty`,
+        `major`,
+        `majorDirection`,
+        `studyWay`,
+        `teacher`,
+        `enrollmentPlan`,
+        `examRegionUrl`,
+        `examRegionId`,
+        `interdisciplinary`,
+        `comment`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof tiiehenry.crawl.pge.model.ResearchMajor$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.url==true">
+                        `url`,
+                    </if>
+                    <if test="fetchFields.fetchFields.examWay==true">
+                        `examWay`,
+                    </if>
+                    <if test="fetchFields.fetchFields.faculty==true">
+                        `faculty`,
+                    </if>
+                    <if test="fetchFields.fetchFields.major==true">
+                        `major`,
+                    </if>
+                    <if test="fetchFields.fetchFields.majorDirection==true">
+                        `majorDirection`,
+                    </if>
+                    <if test="fetchFields.fetchFields.studyWay==true">
+                        `studyWay`,
+                    </if>
+                    <if test="fetchFields.fetchFields.teacher==true">
+                        `teacher`,
+                    </if>
+                    <if test="fetchFields.fetchFields.enrollmentPlan==true">
+                        `enrollmentPlan`,
+                    </if>
+                    <if test="fetchFields.fetchFields.examRegionUrl==true">
+                        `examRegionUrl`,
+                    </if>
+                    <if test="fetchFields.fetchFields.examRegionId==true">
+                        `examRegionId`,
+                    </if>
+                    <if test="fetchFields.fetchFields.interdisciplinary==true">
+                        `interdisciplinary`,
+                    </if>
+                    <if test="fetchFields.fetchFields.comment==true">
+                        `comment`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.url==null">
+                        `url`,
+                    </if>
+                    <if test="fetchFields.excludeFields.examWay==null">
+                        `examWay`,
+                    </if>
+                    <if test="fetchFields.excludeFields.faculty==null">
+                        `faculty`,
+                    </if>
+                    <if test="fetchFields.excludeFields.major==null">
+                        `major`,
+                    </if>
+                    <if test="fetchFields.excludeFields.majorDirection==null">
+                        `majorDirection`,
+                    </if>
+                    <if test="fetchFields.excludeFields.studyWay==null">
+                        `studyWay`,
+                    </if>
+                    <if test="fetchFields.excludeFields.teacher==null">
+                        `teacher`,
+                    </if>
+                    <if test="fetchFields.excludeFields.enrollmentPlan==null">
+                        `enrollmentPlan`,
+                    </if>
+                    <if test="fetchFields.excludeFields.examRegionUrl==null">
+                        `examRegionUrl`,
+                    </if>
+                    <if test="fetchFields.excludeFields.examRegionId==null">
+                        `examRegionId`,
+                    </if>
+                    <if test="fetchFields.excludeFields.interdisciplinary==null">
+                        `interdisciplinary`,
+                    </if>
+                    <if test="fetchFields.excludeFields.comment==null">
+                        `comment`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof tiiehenry.crawl.pge.model.ResearchMajor$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>
