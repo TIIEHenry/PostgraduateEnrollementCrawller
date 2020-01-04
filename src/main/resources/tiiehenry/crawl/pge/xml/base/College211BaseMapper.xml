@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tiiehenry.crawl.pge.mapper.base.College211BaseMapper">
+
+
+    <insert id="insertCollege211" >
+        INSERT INTO `college_211`
+        (
+        <trim suffixOverrides=",">
+                    <if test="collegeName!=null">
+                        `collegeName`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="collegeName!=null">
+                    #{collegeName},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateCollege211">
+        UPDATE `college_211`
+        SET
+        <trim suffixOverrides=",">
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `collegeName` = #{collegeName} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `college_211`
+        SET
+        <trim suffixOverrides=",">
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.collegeNameList != null">
+                    `collegeName` in
+                    <foreach collection="where.collegeNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzyCollegeName!=null and where.fuzzyCollegeName.size()>0">
+                (
+                <foreach collection="where.fuzzyCollegeName"  separator="or" item="item">
+                    `CollegeName` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzyCollegeName!=null and where.rightFuzzyCollegeName.size()>0">
+                (
+                <foreach collection="where.rightFuzzyCollegeName"  separator="or" item="item">
+                    `CollegeName` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="tiiehenry.crawl.pge.model.College211" id="College211Map">
+        <result property="collegeName" column="collegeName"/>
+    </resultMap>
+
+
+    <select id="queryCollege211" resultMap="College211Map">
+        select
+        <include refid="baseResult"></include>
+        from  `college_211`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="collegeName != null and collegeName!=''">
+                `collegeName` = #{collegeName} and
+            </if>
+            <if test = "(_parameter instanceof tiiehenry.crawl.pge.model.College211$QueryBuilder) == true">
+                <if test="collegeNameList != null">
+                    `collegeName` in
+                    <foreach collection="collegeNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzyCollegeName!=null and fuzzyCollegeName.size()>0">
+                    (
+                    <foreach collection="fuzzyCollegeName"  separator="or" item="item">
+                        `CollegeName` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyCollegeName!=null and rightFuzzyCollegeName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyCollegeName"  separator="or" item="item">
+                        `CollegeName` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryCollege211Limit1" resultMap="College211Map">
+        select
+        <include refid="baseResult"></include>
+        from  `college_211`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="collegeName != null and collegeName!=''">
+                `collegeName` = #{collegeName} and
+            </if>
+            <if test = "(_parameter instanceof tiiehenry.crawl.pge.model.College211$QueryBuilder) == true">
+                    <if test="collegeNameList != null">
+                        `collegeName` in
+                        <foreach collection="collegeNameList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzyCollegeName!=null and fuzzyCollegeName.size()>0">
+                    (
+                    <foreach collection="fuzzyCollegeName"  separator="or" item="item">
+                        `CollegeName` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzyCollegeName!=null and rightFuzzyCollegeName.size()>0">
+                    (
+                    <foreach collection="rightFuzzyCollegeName"  separator="or" item="item">
+                        `CollegeName` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `collegeName`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof tiiehenry.crawl.pge.model.College211$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.collegeName==true">
+                        `collegeName`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.collegeName==null">
+                        `collegeName`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof tiiehenry.crawl.pge.model.College211$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>

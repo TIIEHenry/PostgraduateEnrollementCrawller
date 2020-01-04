@@ -31,5 +31,10 @@
         <mapper resource="tiiehenry/crawl/pge/xml/base/ExamregionResearchBaseMapper.xml"/>
         <mapper resource="tiiehenry/crawl/pge/xml/base/CollegeSubjectBaseMapper.xml"/>
         <mapper resource="tiiehenry/crawl/pge/xml/base/ResearchMajorBaseMapper.xml"/>
+        <mapper resource="tiiehenry/crawl/pge/xml/base/CollegeSubjectRankBaseMapper.xml"/>
+        <mapper resource="tiiehenry/crawl/pge/xml/base/College985BaseMapper.xml"/>
+        <mapper resource="tiiehenry/crawl/pge/xml/base/College211BaseMapper.xml"/>
+        <mapper resource="tiiehenry/crawl/pge/xml/base/CollegeCommonBaseMapper.xml"/>
+        <mapper resource="tiiehenry/crawl/pge/xml/base/CollegeInformationBaseMapper.xml"/>
     </mappers>
 </configuration>
