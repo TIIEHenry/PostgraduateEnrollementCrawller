@@ -5,7 +5,8 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import tiiehenry.crawl.pge.college.bean.CollegeForInformationItem
 import tiiehenry.crawl.pge.college.data.DBStorer
-
+//college_information
+//http://college.gaokao.com/schlist
 class CollegeForInformationCraller(val storer: DBStorer) {
     val url = "http://college.gaokao.com/schlist"
     private fun getDocumentForPage(pageNo: Int): Document {
@@ -130,9 +131,9 @@ class CollegeForInformationCraller(val storer: DBStorer) {
         @JvmStatic
         fun main(args: Array<String>) {
 //            launch(MainApplication::class.java)
-            val storer: DBStorer = DBStorer()
-//            CollegeForInformationCraller(storer).start()
-            CollegeForInformationCraller(storer).getCollegeForInformationItemListFromPage(104)
+            val storer = DBStorer()
+            CollegeForInformationCraller(storer).start()
+//            CollegeForInformationCraller(storer).getCollegeForInformationItemListFromPage(104)
         }
     }
 }

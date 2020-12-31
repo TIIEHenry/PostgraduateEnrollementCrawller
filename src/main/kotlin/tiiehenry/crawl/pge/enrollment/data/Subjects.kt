@@ -202,4 +202,10 @@ enum class Subjects(val subjectCode: String, val subjectName: String, val degree
         }
         return null;
     }
+
+    fun get门类(): 门类 {
+        if (degree == 学位.专业学位)
+            return 门类.专业学位
+        return 门类.fromCode(subjectCode.substring(0,2))
+    }
 }

@@ -17,13 +17,19 @@ class College4SubjectCraller(
 ) {
     val url = "https://yz.chsi.com.cn/zsml/queryAction.do";
     private fun getDocumentForPage(pageNo: Int): Document {
+        println("$pageNo:$url")
         return Jsoup.connect(url)
             .data("ssdm", province.provinceCode)
+            .data("dwmc", "")//单位名称
+//            .data("dwmc", "北京大学")//querySchAction
+            .data("mldm", subject.get门类().code)//门类
             .data("yjxkdm", subject.subjectCode)//学科类别
             .data("xxfs", learningStyle.code)
-//            .data("zymc", "计算机科学与技术")//专业
+//            .data("zymc", "计算机科学与技术")//专业名称
             .data("pageno", pageNo.toString())
-//            .data("dwmc", "北京大学")//querySchAction
+//            .data("xxlb", "yjsy")//研究生院
+//            .data("xxlb", "ZHX")//自划线院校
+//            .data("xxlb", "BS")//博士点
             .headers(
                 mapOf(
                     "User-Agent" to "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3298.3 Safari/537.36",
@@ -37,8 +43,12 @@ class College4SubjectCraller(
         val cntable = doc.getElementsByClass("ch-table")[0]
         val tbody = cntable.getElementsByTag("tbody")[0]
         val trList = tbody.getElementsByTag("tr")
-        trList.forEach {
+        for (it in trList) {
             val td_招生单位 = it.children()[0]
+            if (td_招生单位.children().size == 0) {
+//                很抱歉，没有找到您要搜索的数据！
+                break
+            }
             val form = td_招生单位.children()[0]
             val a = form.children()[0]
             val href = a.attr("href");
@@ -109,9 +119,9 @@ class College4SubjectCraller(
             pageNo++;
             doc = getDocumentForPage(pageNo)
 //            println(doc)
-            File("C:\\Users\\AnyWin\\Desktop\\a.html").writeText(
-                doc.toString()
-            )
+//            File("C:\\Users\\AnyWin\\Desktop\\a.html").writeText(
+//                doc.toString()
+//            )
 //            exitProcess(0)
             list.addAll(getCollege4SubjectItemList(doc))
         }
@@ -127,7 +137,6 @@ class College4SubjectCraller(
         getCollege4SubjectItemList().forEach {
             Research4MajorCraller(it, storer).start()
             storer.storeCollege4SubjectItem(it)
-
         }
     }
 }

@@ -3,7 +3,8 @@ package tiiehenry.crawl.pge.college.craller
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import tiiehenry.crawl.pge.college.data.DBStorer
-
+//college_985
+//http://www.chinadegrees.cn/xwyyjsjyxx/xwbl/zdjs/985gc/index.shtml
 class CollegeFor985Craller(val storer:DBStorer) {
     private fun getDocumentForPage(): Document {
         return Jsoup.connect("http://www.chinadegrees.cn/xwyyjsjyxx/xwbl/zdjs/985gc/index.shtml")

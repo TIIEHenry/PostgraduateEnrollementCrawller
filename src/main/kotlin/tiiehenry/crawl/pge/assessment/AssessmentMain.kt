@@ -2,6 +2,9 @@ package tiiehenry.crawl.pge.assessment
 
 import tiiehenry.crawl.pge.assessment.craller.Craller
 
+/**
+ * http://www.cdgdc.edu.cn/xwyyjsjyxx/xkpgjg/
+ */
 class AssessmentMain {
 
 

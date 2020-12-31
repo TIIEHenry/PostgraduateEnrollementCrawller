@@ -10,6 +10,8 @@ class Craller {
     fun start() {
 //        CollegeFor985Craller(storer).start()
 //        CollegeFor211Craller(storer).start()
-        CollegeForCommonCraller(storer).start()
+//        CollegeForCommonCraller(storer).start()
+
+        CollegeForInformationCraller(storer).start()
     }
 }

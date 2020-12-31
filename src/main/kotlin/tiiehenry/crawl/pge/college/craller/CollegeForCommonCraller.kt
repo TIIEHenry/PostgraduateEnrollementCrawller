@@ -4,7 +4,8 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import tiiehenry.crawl.pge.college.bean.CollegeForCommonItem
 import tiiehenry.crawl.pge.college.data.DBStorer
-
+//college_common
+//http://www.chinadegrees.cn/xwyyjsjyxx/xwsytjxx/qgptgxmd/qgptgxmd.html
 class CollegeForCommonCraller(val storer: DBStorer) {
     private fun getDocumentForPage(): Document {
         return Jsoup.connect("http://www.chinadegrees.cn/xwyyjsjyxx/xwsytjxx/qgptgxmd/qgptgxmd.html")

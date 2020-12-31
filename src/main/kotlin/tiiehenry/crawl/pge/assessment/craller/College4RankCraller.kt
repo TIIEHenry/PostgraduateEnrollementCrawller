@@ -6,7 +6,8 @@ import tiiehenry.crawl.pge.assessment.bean.Categories
 import tiiehenry.crawl.pge.assessment.bean.College4RankItem
 import tiiehenry.crawl.pge.assessment.data.DBStorer
 import java.io.File
-
+//college_subject_rank
+//http://www.cdgdc.edu.cn/webrms/pages/Ranking/
 class College4RankCraller(
     val category: Categories,
     val storer: DBStorer
@@ -64,8 +65,8 @@ class College4RankCraller(
             }
 //            println(style)
             val text = it.getElementsByTag("div")[0].text().replace("&nbsp;"," ")
-            File("C:\\Users\\AnyWin\\Desktop\\a.txt").writeText(text)
-            println(text)
+//            File("C:\\Users\\AnyWin\\Desktop\\a.txt").writeText(text)
+//            println(text)
             val collegeCode = text.substringBefore(" ").trim()
             val collegeName = text.substringAfterLast(" ").trim()
             val item = College4RankItem(
